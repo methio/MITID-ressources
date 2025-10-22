@@ -1,0 +1,38 @@
+:root {
+    --main-100 : #F0C1A8;
+    --main-200 : #E9A783;
+    --main-300 : #E38C5E;
+    --main-400 : #DC7239;
+    --main-500 : #C65C23;
+    --main-600 : #A14B1C;
+}
+
+
+body {
+    max-width: 393px;
+    margin: 0 auto;
+    background-color: var(--main-100);
+}
+
+main {
+    background-color: var(--main-200);
+    padding: 1em;
+}
+
+#grid {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: .5em;
+}
+
+.cell{
+    width: 2em;
+    height: 2em;
+    border-radius: .2em;
+    background-color: var(--main-400);
+}
+
+.cell[data-state="on"] {
+    background-color: var(--main-600);
+}
