@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" ref="style.css">
+
+
+    <!-- 
+    we use P5.js library to create a canvas and create a display 
+    we use P5.sound to easily load/play/manipulate audio in the navigator
+    we use tone.js to create sounds and sequences
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/addons/p5.sound.min.js"></script>
+    <!-- <script src="http://unpkg.com/tone"></script> -->
+
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+     <main>
+    </main>
+
+    <div>
+      <input
+        type="range"
+        id="volume"
+        name="volume"
+        min="0"
+        max="1"
+        value=".5"
+        step=".05" />
+      <label for="volume">volume</label>
+    </div>
+
+</body>
+</html>

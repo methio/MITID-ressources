@@ -3,26 +3,37 @@
 // we use P5.sound to easily load/play/manipulate audio in the navigator
 // we use tone.js to create sounds and sequences
 
+// variable to store the mp3 object
 let song;
-const playButton = document.getElementById('play-button');
-const stopButton = document.getElementById('pause-button');
+
+// button to play/pause
 const toggleButton = document.getElementById('toggle-button');
 let isPlaying = false;
 
+//set of sliders
 const reverbSlider = document.getElementById('reverb');
 let reverb; 
 const volumeSlider = document.getElementById('volume');
-
+let volume = .5;
 const rateSlider = document.getElementById('rate');
 let ratee;
+const delaySlider = document.getElementById('delay');
+let delay;
+const distortionSlider = document.getElementById('distortion');
+let distortion;
 
-// Sine wave oscillator
+// oscillators
 let sineOsc; 
 const sineAmp = document.getElementById('sineAmp');
 const sineFreq = document.getElementById('sineFreq');
 
+let polySynth;
+let notes = [200, 900];
+
+
+// canvas and visuals
 let bg;
-let volume = .5;
+
 
 
 function preload() {
@@ -32,13 +43,28 @@ function preload() {
 
 function setup() {
     createCanvas(400, 400);
+    userStartAudio(); 
+
     reverb = new p5.Reverb();
-    sineOsc = new p5.Oscillator('sine');
+    delay = new p5.Delay();
+    distortion = new p5.Distortion();
+
+    // drum = new p5.Oscillator('sine');
+    polySynth = new p5.PolySynth();
 }
 
 function draw() {
     background(map(volume, 0, 1, 0, 255));
     
+}
+
+function mousePressed() {
+    setInterval(plaey, 200);
+}
+
+function plaey(){
+    polySynth.play(random(notes.length-1), 1, 0, .1);
+
 }
 
 
@@ -58,7 +84,7 @@ toggleButton.addEventListener('click', () => {
     if(isPlaying){
         song.pause();
         isPlaying = false;
-        sineOsc.amp(0);
+        // sineOsc.amp(0);
 
 
 
@@ -66,8 +92,8 @@ toggleButton.addEventListener('click', () => {
         song.play();
         isPlaying = true;
 
-        sineOsc.start();
-        sineOsc.amp(.8);
+        // sineOsc.start();
+        // sineOsc.amp(.8);
     }
 
 });
@@ -90,6 +116,19 @@ rateSlider.addEventListener('input', (event) => {
     console.log(ratee, typeof(ratee));
     song.rate(ratee);
 });
+
+delaySlider.addEventListener("input", (event) =>{
+    const delayAmount = parseFloat(event.target.value);
+    const feedback = .5; // how much delay to feed back into itself
+    const filter = 2300; // frequency cutoff for the delay
+    delay.process(song, delayAmount, feedback, filter);
+});
+
+distortionSlider.addEventListener("input", (event) => {
+    const distortionAmount =  parseFloat("event.target.value");
+    distortion.process(song, distortionAmount);
+});
+
 
 sineAmp.addEventListener("input", (event) => {
     const amp = parseFloat(event.target.value);
