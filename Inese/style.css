@@ -1,0 +1,35 @@
+#sun-container {
+    width: 300px;
+    height: 300px;
+    /* resize sun with padding */
+    padding: 32px;
+
+    background-color: #80370f;
+
+    /* hide overflow -> the sun blur */
+    overflow-y: clip;
+}
+
+#sun {
+    background-color: #f8d631;
+    border-radius: 100%;
+    margin: auto;
+    margin-top: 10%;
+
+    width: 80%;
+    aspect-ratio: 1 / 1;
+}
+
+#sun-blur {
+    /* we modify this value to move blur effect */
+    margin-top: -100px;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    backdrop-filter: blur(1em);
+    border-top: solid 2px #f8d631;
+
+    /* smooth transition for the blur */
+    transition: margin-top 2s; 
+}
