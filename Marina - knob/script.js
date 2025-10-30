@@ -1,24 +1,46 @@
 
 const slider = document.getElementById("volume");
 let sliderVal = 0;
-let knobe;
-let knooob;
+const tog = document.getElementById("Play");
+let togVal = false;
 
-let colors = ["#57564F", "#F8F3CE"];
+
+/*
+    Play
+    Volume 
+    Reverb
+    Speed
+    Delay 
+    Distortion
+*/
+
+// setup all the knobs
+let knobReverb, knobSpeed, knobDelay, knobDistortion;
+let togglePlay;
+
+// colors
+let colors = ["#E65213", "#1A2E5C", "#0282D8", "#F9F4DA"];
 
 function setup() {
-    createCanvas(400, 400);
+    createCanvas(100, 400);
     angleMode(DEGREES);
 
-    knobe = new Knob(width/3, height/3, colors[0], colors[1]);
-    knooob = new Knob(30, 30, colors[0], colors[1]);
+    togglePlay =        new Toggle(20, .8*(height/6), 60, 30, colors[1], colors[0], colors[1], colors[3]);
+    knobReverb =        new Knob(width/2, 2*(height/6));
+    knobSpeed =         new Knob(width/2, 3*(height/6));
+    knobDelay =         new Knob(width/2, 4*(height/6));
+    knobDistortion =    new Knob(width/2, 5*(height/6));
+
 }
 
 function draw() {
-    background(220);
-    // knobe.display();
-    knobe.rotate(sliderVal);
-    knooob.rotate(sliderVal);
+    background(colors[3]);
+
+    togglePlay.display(togVal);
+    knobReverb.rotate(sliderVal);
+    knobSpeed.rotate(sliderVal);
+    knobDelay.rotate(sliderVal);
+    knobDistortion.rotate(sliderVal);
 
 }
 
@@ -29,11 +51,19 @@ slider.addEventListener("input", (event) => {
     console.log(`Volume: ${volume}  Mapped Volume: ${mVolume}`);
 });
 
+tog.addEventListener("click", (event) => {
+    togVal = tog.checked;
+    console.log(togVal)
+})
 
+
+
+// we create a class to create the knobs
 class Knob {
-    constructor(x, y, col1, col2) {
+    constructor(x, y, size = 50, col1 = colors[0] , col2 = colors[1]) {
         this.x = x;
         this.y = y;
+        this.size = size;
         this.col1 = col1;
         this.col2 = col2;
     }
@@ -43,10 +73,10 @@ class Knob {
         strokeWeight(3);
         fill(this.col1);
         drawingContext.setLineDash([10,10]);
-        ellipse(0, 0, 50, 50);
+        circle(0, 0, this.size);
         noStroke();
         fill(this.col2);
-        rect(-3, -25, 6, 20);
+        rect(-3, -this.size/2 + 3, 6, 20, 5);
     }
 
     rotate(angle) {
@@ -58,5 +88,44 @@ class Knob {
         pop();
         pop();
     }
+}
 
+class Toggle {
+    constructor(posX, posY, width, height, colorOn1, colorOn2, colorOff1, colorOff2){
+        this.posX = posX;
+        this.posY = posY;
+        this.width = width;
+        this.height = height;
+        this.colorOn1 = colorOn1;
+        this.colorOn2 = colorOn2;
+        this.colorOff1 = colorOff1;
+        this.colorOff2 = colorOff2;
+        this.padding = this.height/2;
+    }
+
+    display(state = true){
+        push();
+            translate(this.posX, this.posY);  
+            if(state){
+                //on
+                stroke(this.colorOn1);
+                strokeWeight(1);
+                fill(this.colorOn2);
+                rect(0, 0, this.width, this.height, this.height/2);
+                noStroke();
+                fill(this.colorOn1);
+                circle(this.padding, this.height/2, this.height - (this.height/4));              
+
+            }else{
+                //off
+                stroke(this.colorOff1);
+                strokeWeight(1);
+                fill(this.colorOff2);
+                rect(0, 0, this.width, this.height, this.height/2);
+                noStroke();
+                fill(this.colorOff1);
+                circle(this.width - this.padding, this.height/2, this.height - (this.height/4));
+            }
+        pop();
+    }
 }
