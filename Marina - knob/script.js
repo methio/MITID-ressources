@@ -6,12 +6,12 @@ let togVal = false;
 
 
 /*
-    Play
-    Volume 
-    Reverb
-    Speed
-    Delay 
-    Distortion
+    Play            |   toggle
+    Volume          |   knob
+    Reverb          |   knob
+    Speed           |   knob
+    Delay           |   knob
+    Distortion      |   knob
 */
 
 // setup all the knobs
@@ -25,25 +25,25 @@ function setup() {
     createCanvas(100, 400);
     angleMode(DEGREES);
 
-    togglePlay =        new Toggle(20, .8*(height/6), 60, 30, colors[1], colors[0], colors[1], colors[3]);
-    knobReverb =        new Knob(width/2, 2*(height/6));
-    knobSpeed =         new Knob(width/2, 3*(height/6));
-    knobDelay =         new Knob(width/2, 4*(height/6));
-    knobDistortion =    new Knob(width/2, 5*(height/6));
-
+    togglePlay =      new Toggle(20, .8*(height/6), 60, 30, colors[1], colors[0], colors[1], colors[3]);
+    knobReverb =      new Knob(width/2, 2*(height/6));
+    knobSpeed =       new Knob(width/2, 3*(height/6));
+    knobDelay =       new Knob(width/2, 4*(height/6));
+    knobDistortion =  new Knob(width/2, 5*(height/6));
 }
 
 function draw() {
     background(colors[3]);
 
+    // update display of elements
     togglePlay.display(togVal);
     knobReverb.rotate(sliderVal);
     knobSpeed.rotate(sliderVal);
     knobDelay.rotate(sliderVal);
     knobDistortion.rotate(sliderVal);
-
 }
 
+// for this example we listen to slider and checkbox instead of adafruitIO data
 slider.addEventListener("input", (event) => {
     let volume = event.target.value;
     let mVolume = parseInt(map(volume, 0, 1, 0, 360));
@@ -53,8 +53,8 @@ slider.addEventListener("input", (event) => {
 
 tog.addEventListener("click", (event) => {
     togVal = tog.checked;
-    console.log(togVal)
-})
+    console.log(`Checkbox state is: ${togVal}`);
+});
 
 
 
