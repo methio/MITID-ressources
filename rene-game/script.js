@@ -1,8 +1,8 @@
 
 
 // we create a adafruitIO object
-const username = "methio";
-const activeKey = "aio_qAMh59SOYZlpwtOwbfTVBJoAXIzu";
+const username = "secret";
+const activeKey = "secret";
 const IO = new AdafruitIO(username, activeKey);
 
 // game variables
