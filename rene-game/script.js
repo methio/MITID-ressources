@@ -1,5 +1,3 @@
-
-
 // we create a adafruitIO object
 const username = "secret";
 const activeKey = "secret";
@@ -9,11 +7,12 @@ const IO = new AdafruitIO(username, activeKey);
 const base = 50;
 let canvasSize = 400;
 
-
+// player start at the center of the screen
 let playerPosX = canvasSize/2;
 let playerPosY = canvasSize/2;
 let joystickX, joystickY;
 
+// image for the player
 let playerImage;
 
 
@@ -23,6 +22,17 @@ setInterval(function(){
         //debug
         console.log(data.json[0].value);
         // parse the data to get joystick value
+        /*
+            we receive the joystick data as an array (string) 
+            [ 1000, 512, 1 ]
+               |     |   L the button state
+               |     | 
+               |     L the joystick on Y axis
+               |
+               L the joystick on X axis
+
+            So, we need to parse the data
+        */
         let ldata = data.json[0].value;
         joystickX = ldata.split(',')[0].substring(1, ldata.length -1);
         joystickY = ldata.split(',')[1];
