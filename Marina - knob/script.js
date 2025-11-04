@@ -22,7 +22,8 @@ let togglePlay;
 let colors = ["#E65213", "#1A2E5C", "#0282D8", "#F9F4DA"];
 
 function setup() {
-    createCanvas(100, 400);
+    let myCanvas = createCanvas(100, 400);
+    myCanvas.parent("canvasHere");
     angleMode(DEGREES);
 
     togglePlay =      new Toggle(20, .8*(height/6), 60, 30, colors[1], colors[0], colors[1], colors[3]);
