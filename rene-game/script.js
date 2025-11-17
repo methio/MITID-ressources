@@ -75,9 +75,7 @@ function preload(){
 
 function setup() {
     let myCanvas = createCanvas(canvasSize, canvasSize);
-    myCanvas.parent("canvasPos");
-
-    
+    myCanvas.parent("canvasPos");  
 }
 
 function draw() {

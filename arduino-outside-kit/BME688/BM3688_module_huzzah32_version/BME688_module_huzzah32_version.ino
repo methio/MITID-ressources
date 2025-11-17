@@ -27,14 +27,14 @@ Adafruit_BME680 bme;
 
 
 This is what we send to adafruitIO feed. 
- data = [23.87,994.52,45.09,39.53,157.12];
+ data = 23.87,994.52,45.09,39.53,157.12;
             |     |      |    |     └── altitude
             |     |      |    └── gas 
             |     |      └── humidity 
             |     └── pression
             └── temperature
 */
-String data = "[";
+String data = "";
 
 // setup the adafruit IO feed: replace "your_feed_name"
 AdafruitIO_Feed *your_feed_name = io.feed("your_feed_name");
@@ -108,7 +108,7 @@ void loop() {
   float alti = bme.readAltitude(SEALEVELPRESSURE_HPA); // add latest altitude to array
 
   // concatenate the data
-  data = data + temp + "," + press + "," + humi + "," + gas + "," + alti + "]";
+  data = data + temp + "," + press + "," + humi + "," + gas + "," + alti;
   Serial.println(data);
 
   // save data to adafruit feed
@@ -119,6 +119,6 @@ void loop() {
   delay(2000);
 
   // clear the array
-  data = "[";
+  data = "";
 
 }
